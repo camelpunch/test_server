@@ -3,13 +3,13 @@ if !exists("g:test_server_pipe")
 endif
 
 let g:test_cmd_for_test_pattern = {
-      \ '_spec.rb$': 'bundle exec rspec',
-      \ '\.feature$': 'bundle exec cucumber',
+      \ '_spec.rb$': 'rspec',
+      \ '\.feature$': 'cucumber',
       \}
 
 let g:test_cmd_for_src_pattern = {
-      \ '\.rb$': 'bundle exec rspec',
-      \ '\.haml$': 'bundle exec rspec',
+      \ '\.rb$': 'rspec',
+      \ '\.haml$': 'rspec',
       \}
 
 let g:non_test_filename_replacements = [
@@ -68,8 +68,12 @@ fun! s:SendToTestServer(command)
   if exists("s:last_test_run")
     let s:previous_test_run = s:last_test_run
   endif
+  if exists(g:test_server_pipe)
   call writefile([a:command], g:test_server_pipe)
-  echom "Sent " . a:command
+    echom "Sent " . a:command
+  else
+    execute 'Dispatch '.a:command
+  endif
   let s:last_test_run = a:command
 endf
 
