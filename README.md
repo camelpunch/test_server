@@ -1,5 +1,7 @@
 # Test Server
 
+**DEPRECATED** in favour of Luan's fork and overhaul: https://github.com/luan/vipe
+
 This was borne out of frustration with the current state of DRB, autospec / test
 / rspactor et al. They were just taking too long to set up for me.
 
